@@ -2,10 +2,10 @@ import tkinter as tk
 import RPi.GPIO as GPIO
 window = tk.Tk()
 
-ledPin = 11
+ledPin = 14
 
+GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
 GPIO.setup(ledPin, GPIO.OUT, initial=GPIO.LOW)
 pwmLEDPin = GPIO.PWM(ledPin, 100)
 pwmLEDPin.start(0)
@@ -14,12 +14,16 @@ GPIO.output(ledPin, GPIO.HIGH)
 
 def setOff():
     powerSlider.pack_forget()
+    pwmLEDPin.ChangeDutyCycle(0)
 
 def setOn():
     powerSlider.pack()
 
+def setStrength(val):
+    pwmLEDPin.ChangeDutyCycle(val)
 
-powerSlider = tk.Scale(window, from_= 0, to=100, orient="horizontal")
+
+powerSlider = tk.Scale(window, from_= 0, to=100, orient="horizontal", command=setStrength)
 
 
 btnOn = tk.Button(window,text="On", command=setOn)
