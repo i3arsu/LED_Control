@@ -1,6 +1,16 @@
 import tkinter as tk
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 window = tk.Tk()
+
+ledPin = 11
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(ledPin, GPIO.OUT, initial=GPIO.LOW)
+pwmLEDPin = GPIO.PWM(ledPin, 100)
+pwmLEDPin.start(0)
+dutyCycle = 100
+GPIO.output(ledPin, GPIO.HIGH)
 
 def setOff():
     powerSlider.pack_forget()
