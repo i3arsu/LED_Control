@@ -3,13 +3,14 @@ import RPi.GPIO as GPIO
 window = tk.Tk()
 
 ledPin = 14
+pwmLEDPin = GPIO.PWM(ledPin, 100)
+pwmLEDPin.start(0)
+dutyCycle = 100
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(ledPin, GPIO.OUT, initial=GPIO.LOW)
-pwmLEDPin = GPIO.PWM(ledPin, 100)
-pwmLEDPin.start(0)
-dutyCycle = 100
+
 GPIO.output(ledPin, GPIO.HIGH)
 
 def setOff():
